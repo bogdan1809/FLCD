@@ -1,0 +1,15 @@
+int n1,n2;
+read(n1);
+read(n2);
+    if (n1<>n2){
+        do {
+            if (n1>n2){
+                n1=n1-n2;
+            }
+            else{
+                n2=n2-n1;
+                }
+            }
+        while (n1<>n2)
+        }
+print(n1);

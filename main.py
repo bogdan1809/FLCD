@@ -1,16 +1,34 @@
-# This is a sample Python script.
+from PIF import ProgramInternalForm
+from scanner import get_tokens, isConstant, isIdentifier
+from SymbolTable import SymbolTable
+from tokenList import *
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    file_name = input("Input the name of the program you want to run: ")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    file = open(file_name, 'r')
+    for line in file:
+        print(line)
+
+    symbol_table = SymbolTable()
+    pif = ProgramInternalForm()
+    with open(file_name, 'r') as file:
+        line_nr = 0
+        for line in file:
+
+            line_nr += 1
+            tokenList = get_tokens(line, separators)
+            print(tokenList)
+            for token in tokenList:
+                if token in allTokens:
+                    pif.add(token, -1)
+                elif isIdentifier(token):
+                    id = symbol_table.add(token)
+                    pif.add("identifier", id)
+                elif isConstant(token):
+                    id = symbol_table.add(token)
+                else:
+                    raise Exception("Unknown token " + token + " at line" + str(line_nr))
+
+    print("PIF:\n", pif)
+    print("ST:\n", symbol_table)

@@ -82,12 +82,12 @@ class BinarySearchTree(object):
     #         elif node.is_right_child:
     #             node.parent.right = None
     #         node.parent = None
-
-    def _get_smallest_node(self, starting_node):
-        node = starting_node
-        while node.left:
-            node = node.left
-        return node
+    #
+    # def _get_smallest_node(self, starting_node):
+    #     node = starting_node
+    #     while node.left:
+    #         node = node.left
+    #     return node
 
     def insert(self, value):
         """Creates BinaryTreeNode and inserts in the tree."""
@@ -154,9 +154,6 @@ class BinarySearchTree(object):
         return None
 
 
-    def status(self):
-        """Returns the list of nodes stored in Tree in BFS order"""
-        return self._bfs_traversal()
 
     def display(self):
         """Prints the status of Tree (with BFS traversal)"""
@@ -181,13 +178,3 @@ class BinarySearchTree(object):
             if node.right:
                 queue.put(node.right)
         return tree_status
-
-my_tree = BinarySearchTree()
-
-my_tree.insert("aaa")
-my_tree.insert("bbb")
-
-my_tree.insert("ccc")
-my_tree.insert("ccc")
-my_tree.display()
-print(my_tree.search("ccc"))

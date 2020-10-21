@@ -1,0 +1,19 @@
+in n1,n2,n3¢;
+read(n1);
+read(n2);
+read(n3);
+if (n1 >n2){
+    If (n1>n3){
+        print(n1);
+        }
+    }
+if (n2 >n1){
+    If (n2>n3){
+        print(n2);
+        }
+    }
+if (n3 >n2){
+    If (n3>n1){
+        print(n3);
+        }
+    }
