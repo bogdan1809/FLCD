@@ -3,6 +3,7 @@ class ProgramInternalForm:
         self.__pif = []
 
     def add(self, code, id):
+
         self.__pif.append((code, id))
 
     def __str__(self):

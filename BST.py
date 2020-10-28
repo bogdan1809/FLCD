@@ -36,12 +36,6 @@ class BinarySearchTree(object):
     Create BST with either of the following constructor:
         - BinarySearchTree()
             -> with no parameter
-        - BinarySearchTree("10")
-            -> with str as parameter
-        - BinarySearchTree(BinaryTreeNode("10"))
-            -> with BinaryTreeNode as parameter
-        - BinarySearchTree(["10", "14", "6", "19", "8"])
-            -> with list of str objects as parameter
     """
     def __init__(self):
         self.pos = 1
@@ -102,7 +96,7 @@ class BinarySearchTree(object):
                 return self.pos-1
             else:
                 atPos=self.search(value)
-                print("Already inserted at pos {0}".format(atPos))
+                print("Already inserted at pos {0} : {1}".format(atPos,value))
                 return atPos
     #
     # def _delete_node(self, node):
@@ -157,9 +151,9 @@ class BinarySearchTree(object):
 
     def display(self):
         """Prints the status of Tree (with BFS traversal)"""
-        print("")
-        self._bfs_traversal(display=True)
-        print ("")
+
+        return str(self._bfs_traversal(display=False))
+
 
     def _bfs_traversal(self, display=False):
         tree_status = list()
@@ -172,7 +166,7 @@ class BinarySearchTree(object):
             node = queue.get()
             if display:
                 print(" ->", node.value, end=" ")
-            tree_status.append(node.value)
+            tree_status.append((node.value,node.position))
             if node.left:
                 queue.put(node.left)
             if node.right:

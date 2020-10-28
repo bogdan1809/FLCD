@@ -37,11 +37,12 @@ def get_tokens(line, separators):
 
     index = 0
     tokenList = []
-    line=line.strip()
+    line = line.strip()
 
     while index < len(line):
         if line[index] == '"':
             if token:
+
                 tokenList.append(token)
 
             token, index = getStringToken(line, index)
@@ -75,8 +76,8 @@ def get_tokens(line, separators):
 
 
 def isIdentifier(token):
-    return re.match(r'^[a-zA-Z]([a-zA-Z]|[0-9]){,7}$', token) is not None
+    return re.match(r'^[a-zA-Z]([a-zA-Z]|[0-9]){,255}$', token) is not None
 
 
 def isConstant(token):
-    return re.match('^(0|[\+\-]?[1-9][0-9]*)$|^\'.\'$|^\".*\"$', token) is not None
+    return re.match('^(0|[\+\-]?[1-9][0-9]*)$|^\".*\"$', token) is not None

@@ -10,3 +10,4 @@ class SymbolTable:
 
     def __str__(self):
         return self.__bst.display()
+

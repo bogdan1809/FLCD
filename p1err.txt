@@ -1,7 +1,8 @@
-in n1,n2,n3¢;
+int n1,n2,n3;
 read(n1);
 read(n2);
 read(n3);
+n1=02;
 if (n1 >n2){
     If (n1>n3){
         print(n1);
