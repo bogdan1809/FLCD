@@ -1,5 +1,6 @@
 from FiniteAutomata import *
 from Grammar import *
+from Parser import Parser
 
 if __name__ == '__main__':
     fa = FiniteAutomata()
@@ -11,6 +12,7 @@ if __name__ == '__main__':
         print("2-Verify if FA is deterministic")
         print("3-Enter sequence and see if accepted")
         print("4-Read grammar")
+        print("5-Parser")
         opt = int(input("Pick one"))
         if opt == 1:
             fa.printAll()
@@ -36,3 +38,8 @@ if __name__ == '__main__':
                     print(grammar.get_nonterminals())
                 elif opt2 == 4:
                     print(grammar.get_productions())
+        elif opt == 5:
+            parser = Parser("grammar.txt")
+            print(parser.get_first_set())
+            print(parser.generate_follow_set())
+            parser.create_table()

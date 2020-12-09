@@ -17,7 +17,7 @@ class Grammar:
 
             for symbols in self.__productions[nonterminal]:
                 for symbol in symbols:
-                    if symbol not in self.__terminals and symbol not in self.__nonterminals:
+                    if symbol not in self.__terminals and symbol not in self.__nonterminals and symbol !="epsilon":
                         raise Exception(f"{symbol} not in any list")
 
     def read_grammar_from_file(self, fileName):

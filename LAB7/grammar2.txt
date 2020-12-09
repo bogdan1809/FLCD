@@ -1,0 +1,9 @@
+S T C E R I
+a b c d e f x y
+S
+S - a C b I T
+T - epsilon | c I
+C - E R E
+E - x | y
+R - d | e
+I - x f E
