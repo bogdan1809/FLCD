@@ -8,6 +8,7 @@ class Parser:
         self.__followSet = {}
         self.generate_first_set()
         self.__parsing_table = {}
+        print(self.__grammar.get_productions())
 
     def generate_first_set(self):
 
@@ -67,10 +68,19 @@ class Parser:
 
                             if elem[i + 1] in self.__grammar.get_terminals():
                                 followSet.append(elem[i + 1])
+                                return followSet
                             if elem[i + 1] in self.__grammar.get_nonterminals():
                                 followSet.extend(self.__firstSet[elem[i + 1]])
+                                if "epsilon" in self.__firstSet[elem[i+1]]:
+                                        followSet.extend(self.__followSet[production[0]])
+                                        for i in range(len(followSet)):
+                                            if followSet[i]=="epsilon":
+                                                followSet.pop(i)
+                                                break
+                                return followSet
                         else:
                             followSet.extend(self.follow_of(production[0]))
+                            return followSet
         return followSet
 
     def get_follow_set(self):
@@ -80,26 +90,22 @@ class Parser:
         nonterminals = self.__grammar.get_nonterminals()
         terminals = self.__grammar.get_terminals()
         terminals.append("$")
-        for nonterminal in nonterminals:
-            for terminal in terminals:
-                self.__parsing_table[(nonterminal, terminal)] = 0
 
         productions = self.__grammar.get_productions()
 
         productionIndex = 1
         for entry in productions.items():
             for production in entry[1]:
-                for item in production:
-                    if item in terminals:
-                        self.__parsing_table[(entry[0], item)] = productionIndex
-                    elif item == "epsilon":
-                        follow = self.__followSet[entry[0]]
-                        for elem in follow:
-                            self.__parsing_table[(entry[0], elem)] = productionIndex
-                    elif item in nonterminals:
-                        first = self.__firstSet[item]
-                        for elem in first:
-                            self.__parsing_table[(entry[0], elem)] = productionIndex
+                if production[0] in terminals:
+                    self.__parsing_table[(entry[0], production[0])] = productionIndex
+                elif production[0] == "epsilon":
+                    follow = self.__followSet[entry[0]]
+                    for elem in follow:
+                        self.__parsing_table[(entry[0], elem)] = productionIndex
+                elif production[0] in nonterminals:
+                    first = self.__firstSet[entry[0]]
+                    for elem in first:
+                        self.__parsing_table[(entry[0], elem)] = productionIndex
                 productionIndex += 1
 
         for cell in self.__parsing_table.items():

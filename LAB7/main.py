@@ -39,7 +39,8 @@ if __name__ == '__main__':
                 elif opt2 == 4:
                     print(grammar.get_productions())
         elif opt == 5:
-            parser = Parser("grammar.txt")
+            parser = Parser("grammar3.txt")
+
             print(parser.get_first_set())
             print(parser.generate_follow_set())
             parser.create_table()
