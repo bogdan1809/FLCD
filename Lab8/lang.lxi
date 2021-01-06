@@ -1,0 +1,84 @@
+
+%{
+#include <stdio.h>
+#include <string.h>
+int lines = 1;
+%}
+
+%option noyywrap
+%option caseless
+
+digit [0-9]
+number [1-9][0-9]*|0
+letter [A-Za-z]
+identifier {letter}({letter}|{digit})*
+string		["][^\n"]*["]
+char	"'"[^\n]"'"
+operator	[+-*/()<>=]
+separator [;,:[]]
+
+%%
+
+do		{printf( "Reserved word: %s\n", yytext );}
+else		{printf( "Reserved word: %s\n", yytext );}
+if		{printf( "Reserved word: %s\n", yytext );}
+print		{printf( "Reserved word: %s\n", yytext );}
+read		{printf( "Reserved word: %s\n", yytext );}
+while		{printf( "Reserved word: %s\n", yytext );}
+char		{printf( "Reserved word: %s\n", yytext );}
+string		{printf( "Reserved word: %s\n", yytext );}
+int		{printf( "Reserved word: %s\n", yytext );}
+"="		{printf( "Operator: %s\n", yytext );}
+"<"		{printf( "Operator: %s\n", yytext );}
+">"		{printf( "Operator: %s\n", yytext );}
+"<>"		{printf( "Operator: %s\n", yytext );}
+"<="		{printf( "Operator: %s\n", yytext );}
+">="		{printf( "Operator: %s\n", yytext );}
+"=="		{printf( "Operator: %s\n", yytext );}
+"+"		{printf( "Operator: %s\n", yytext );}
+"-"		{printf( "Operator: %s\n", yytext );}
+"*"		{printf( "Operator: %s\n", yytext );}
+"/"		{printf( "Operator: %s\n", yytext );}
+"%"		{printf( "Operator: %s\n", yytext );}
+"("	{printf( "Separator: %s\n", yytext );}
+")"	{printf( "Separator: %s\n", yytext );}
+"{"		{printf("Begin: %s\n",yytext);}
+"}"		{printf("End: %s\n",yytext);}
+";" {printf("Separator: %s\n",yytext);}
+":" {printf("Separator: %s\n",yytext[0]);}
+"," {printf("Separator: %s\n",yytext);}
+"[" {printf("Separator: %s\n",yytext);}
+"]" {printf("Separator: %s\n",yytext);}
+[0-9][a-zA-Z0-9]	{printf("Illegal identifier at line %d\n", lines);}
+{identifier}	{printf("Identifier: %s\n",yytext);}
+{string} {printf("String: %s\n",yytext);}
+{number} {printf("Number: %s\n",yytext);}
+{char} {printf("Char: %s\n",yytext);}
+
+[\n]+ {lines++;}
+[\t\n]+ {}
+
+
+%%
+
+void main(argc, argv)
+int argc;
+char** argv;
+
+{
+    if (argc > 1)
+    {
+
+        FILE *file;
+        file = fopen(argv[1], "r");
+        if (!file)
+        {
+            fprintf(stderr, "Could not open %s\n", argv[1]);
+            exit(1);
+        }
+        yyin = file;
+    }
+    yylex();
+
+}
+

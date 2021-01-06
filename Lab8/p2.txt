@@ -1,0 +1,21 @@
+int nr,ok,div;
+char c;
+c='r';
+read(nr);
+ok=1;
+div=2;
+do{
+    if (nr%div==0)
+        {
+            ok=0;
+        }
+    div=div+1;
+    }
+while (div<=nr/2)
+if (ok==1)
+    {
+        print("prime");
+    }
+    else{
+        print("not prime");
+    }
